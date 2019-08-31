@@ -1,0 +1,13 @@
+{
+    "restaurant": [{
+        "precioPlatillo": 200,
+        "nombrePlatillo": "cheesecake",
+        "categoria": "postres",
+        "id": 1
+    }, {
+        "precioPlatillo": 300,
+        "nombrePlatillo": "Costillas",
+        "categoria": "carnes",
+        "id": 2
+    }]
+}
