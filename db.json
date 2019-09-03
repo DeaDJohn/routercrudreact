@@ -1,13 +1,46 @@
 {
-    "restaurant": [{
-        "precioPlatillo": 200,
-        "nombrePlatillo": "cheesecake",
-        "categoria": "postres",
-        "id": 1
-    }, {
-        "precioPlatillo": 300,
-        "nombrePlatillo": "Costillas",
-        "categoria": "carnes",
-        "id": 2
-    }]
+  "restaurant": [
+    {
+      "precioPlatillo": "200",
+      "nombrePlatillo": "cheesecakes",
+      "categoriaPlatillo": "postre",
+      "id": 1
+    },
+    {
+      "precioPlatillo": "500",
+      "nombrePlatillo": "Costillas",
+      "categoriaPlatillo": "cortes",
+      "id": 2
+    },
+    {
+      "nombrePlatillo": "Ensalada cesar",
+      "precioPlatillo": "300",
+      "categoriaPlatillo": "ensalada",
+      "id": 3
+    },
+    {
+      "nombrePlatillo": "Coca Cola",
+      "precioPlatillo": "50",
+      "categoriaPlatillo": "bebida",
+      "id": 4
+    },
+    {
+      "nombrePlatillo": "Natillas",
+      "precioPlatillo": "150",
+      "categoriaPlatillo": "postre",
+      "id": 5
+    },
+    {
+      "nombrePlatillo": "Arroz con leche",
+      "precioPlatillo": "95",
+      "categoriaPlatillo": "postre",
+      "id": 6
+    },
+    {
+      "nombrePlatillo": "Sopa Castellana",
+      "precioPlatillo": "150",
+      "categoriaPlatillo": "cortes",
+      "id": 7
+    }
+  ]
 }

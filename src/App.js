@@ -13,33 +13,59 @@ import Header from './componentes/Header';
 function App() {
 
 	const [ productos, guardarProductos ] = useState([]);
+	const [ recargarProductos, guardarRecargarProductos ] = useState(true);
 
 	useEffect(() => {
-		const consultarApi = async () => {
-			// consultar la api del json-server
-			const resultado = await axios.get('http://localhost:4000/restaurant');
+		if(recargarProductos) {
+			const consultarApi = async () => {
+				// consultar la api del json-server
+				const resultado = await axios.get('http://localhost:4000/restaurant');
+	
+				console.log(resultado.data);
+	
+				guardarProductos(resultado.data);
+			}
+			consultarApi();
 
-			console.log(resultado.data);
-
-			guardarProductos(resultado.data);
+			// Cambiar a false la recarga de los productos
+			guardarRecargarProductos(false);
 		}
-		consultarApi();
-	}, [])
+	}, [recargarProductos])
 	return (
 		<Router>
 			<Header />
 			<main className="container mt-5">
 				<Switch>
-					<Route exac path="/productos"
+					<Route exact path="/productos"
 						render={ () => (
 							<Productos
 								productos={productos}
 							/>
 						)}
 					/>
-					<Route exac path="/nuevo-producto" component={AgregarProducto} />
-					<Route exac path="/productos/:id" component={Producto} />
-					<Route exac path="/productos/editar/:id" component={EditarProducto} />
+					<Route exact path="/nuevo-producto" 
+						render={ () =>(
+							<AgregarProducto
+								guardarRecargarProductos={guardarRecargarProductos}
+							/>
+						)} 
+					/>
+					<Route exact path="/productos/:id" component={Producto} />
+					<Route exact path="/productos/editar/:id" 
+						render={ props => {
+							// tomar el Id del producto
+							const idProducto = parseInt(props.match.params.id);
+
+							// el product que se pasa al state
+							const producto = productos.filter(producto => producto.id === idProducto);
+
+							return(
+								<EditarProducto 
+									producto = {producto[0]}
+									guardarRecargarProductos={guardarRecargarProductos}
+								/>
+							)
+						}} />
 				</Switch>
 			</main>
 			<p className="mt-4 p-2 text-center">Todos derechos reservados</p>

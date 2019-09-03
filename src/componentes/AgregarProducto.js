@@ -1,12 +1,74 @@
-import React from 'react';
+import React, {useState} from 'react';
+import axios from 'axios';
+import Swal from 'sweetalert2'
 
-function AgregarProducto () {
+import Error from './Error';
+import {withRouter} from 'react-router-dom';
+
+function AgregarProducto ({history, guardarRecargarProductos}) {
+
+    // state
+
+    const [ nombrePlatillo, guardarNombre ] = useState('');
+    const [ precioPlatillo, guardarPrecio ] = useState('');
+    const [ categoriaPlatillo, guardarCategoria ] = useState('');
+    const [error, guardarError ] = useState(false);
+
+
+    const leerValorRadio =  e => {
+        guardarCategoria(e.target.value)
+    }
+
+    const agregarProducto = async e =>{
+        e.preventDefault();
+
+        if(nombrePlatillo === '' || precioPlatillo === '' || categoriaPlatillo === ''){
+            guardarError(true);
+            return;
+        }
+
+        guardarError(false);
+
+        // Crear nuevo producto
+        try {
+            const resultado = await axios.post('http://localhost:4000/restaurant', {
+                nombrePlatillo,
+                precioPlatillo,
+                categoriaPlatillo
+            });
+
+            if(resultado.status === 201){
+                Swal.fire(
+                    'Producto Creado',
+                    'El producto se ha creado correctamente',
+                    'success'
+                  )
+            }
+        } catch ( error ) {
+            console.log(error);
+            Swal.fire({
+                type: 'error',
+                title: 'Error...',
+                text: 'Hubo un error, vuelve a intentarlo',
+              })
+        }
+
+        // Redirigir al usuario a productos
+        guardarRecargarProductos(true);
+        history.push('/productos');
+
+
+    }
+
     return (
         <div className="col-md-8 mx-auto ">
             <h1 className="text-center">Agregar Nuevo Producto</h1>
 
+            {(error) ? <Error mensaje='Todos los campos son obligatorios' /> : null}
+
             <form
                 className="mt-5"
+                onSubmit={agregarProducto}
             >
                 <div className="form-group">
                     <label>Nombre Platillo</label>
@@ -15,6 +77,7 @@ function AgregarProducto () {
                         className="form-control" 
                         name="nombre" 
                         placeholder="Nombre Platillo"
+                        onChange={e => guardarNombre(e.target.value)}
                     />
                 </div>
 
@@ -25,6 +88,7 @@ function AgregarProducto () {
                         className="form-control" 
                         name="precio"
                         placeholder="Precio Platillo"
+                        onChange={e => guardarPrecio(e.target.value)}
                     />
                 </div>
 
@@ -36,6 +100,7 @@ function AgregarProducto () {
                         type="radio" 
                         name="categoria"
                         value="postre"
+                        onChange={leerValorRadio}
                     />
                     <label className="form-check-label">
                         Postre
@@ -47,6 +112,7 @@ function AgregarProducto () {
                         type="radio" 
                         name="categoria"
                         value="bebida"
+                        onChange={leerValorRadio}
                     />
                     <label className="form-check-label">
                         Bebida
@@ -59,6 +125,7 @@ function AgregarProducto () {
                         type="radio" 
                         name="categoria"
                         value="cortes"
+                        onChange={leerValorRadio}
                     />
                     <label className="form-check-label">
                         Cortes
@@ -71,6 +138,7 @@ function AgregarProducto () {
                         type="radio" 
                         name="categoria"
                         value="ensalada"
+                        onChange={leerValorRadio}
                     />
                     <label className="form-check-label">
                         Ensalada
@@ -83,4 +151,4 @@ function AgregarProducto () {
         </div>
     )
 };
-export default  AgregarProducto;
+export default  withRouter(AgregarProducto);

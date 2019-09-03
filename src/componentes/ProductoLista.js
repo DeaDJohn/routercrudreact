@@ -16,7 +16,7 @@ function ProductoLista({producto}){
             data-categoria={producto.categoria}>
             <p>
                 {producto.nombrePlatillo}
-                <span className="font-weight-bold">€ {producto.precioPlatillo}</span>
+                <span className="font-weight-bold"> {producto.precioPlatillo} €</span>
             </p>
 
             <div>
