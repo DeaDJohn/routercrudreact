@@ -35,12 +35,6 @@
       "precioPlatillo": "95",
       "categoriaPlatillo": "postre",
       "id": 6
-    },
-    {
-      "nombrePlatillo": "Sopa Castellana",
-      "precioPlatillo": "150",
-      "categoriaPlatillo": "cortes",
-      "id": 7
     }
   ]
 }
